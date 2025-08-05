@@ -321,7 +321,32 @@ width="687px" height="256px" style="border:0px;"> </iframe>""",unsafe_allow_html
             Selain itu, dikenal juga tripel Pythagoras, yaitu kumpulan tiga bilangan bulat yang memenuhi teorema Pythagoras. 
         """)
         st.image("https://res.cloudinary.com/ikip-siliwangi/image/upload/v1754179521/pythagorais_ozgctq.png", width=400)
-            
+        st.markdown("""<div style="font-size:20px; font-weight:bold; color:black; background-color:yellow;
+                    padding:5px; width:500px;margin-top:10px; margin-bottom:10px;border-radius:10px">
+                     🔷 Segitiga Siku-Siku Sama Kaki (45°-45°-90°)
+                     </div>""",unsafe_allow_html=True)
+        st.markdown("""
+        - Dua sudutnya masing-masing 45 derajat, dan satu sudut siku-siku (90 derajat).
+        - Perbandingan sisi-sisinya adalah $1 : 1 : √2$ (sisi yang berhadapan dengan sudut $45°$ : sisi yang berhadapan dengan sudut $45°$ : sisi miring)
+        - Contoh: Jika sisi yang berhadapan dengan sudut $45°$ adalah 5, maka sisi miringnya adalah $5√2$. 
+        """)
+        st.markdown("""<div style="font-size:20px; font-weight:bold; color:black; background-color:yellow;
+                    padding:5px; width:500px;margin-top:10px; margin-bottom:10px;border-radius:10px">
+                     🔷 Segitiga Siku-Siku dengan Sudut 30°-60°-90°
+                     </div>""",unsafe_allow_html=True)
+        st.markdown("""
+        - Satu sudutnya 30 derajat, satu sudut 60 derajat, dan satu sudut siku-siku (90 derajat).
+        - Perbandingan sisi-sisinya adalah $ √3 : 1 : 2$ (sisi terpendek : sisi sedang : sisi miring).
+        - Contoh: Jika sisi terpendek (berhadapan dengan sudut 30°) adalah 4, maka sisi yang berhadapan dengan sudut 60° adalah 4√3, dan sisi miringnya adalah 8.  
+        """)
+        st.markdown("""<div style="font-size:20px; font-weight:bold; color:black; background-color:yellow;
+                    padding:5px; width:200px;margin-top:10px; margin-bottom:10px;border-radius:10px">
+                     🔷 Contoh
+                     </div>""",unsafe_allow_html=True)
+        st.markdown("""
+        Jika diketahui segitiga siku-siku sama kaki dengan panjang salah satu sisi siku-sikunya $6\;cm$,
+        maka panjang sisi miringnya adalah $6√2\;cm$ (karena perbandingannya $1:1:√2$).   
+        """)
 if st.session_state.materiU:
     konsep()
 
@@ -498,7 +523,7 @@ def gambaran():
             buf.seek(0)
 
             # Upload ke Cloudinary
-            result = cloudinary.uploader.upload(buf, folder="gambar_streamlit/")
+            result = cloudinary.uploader.upload(buf, folder="gambar_streamlit/",public_id=st.session_state.nama)
             st.success("Berhasil diupload!")
             st.image(result['secure_url'], caption="Link dari Cloudinary")
             st.write("URL:", result['secure_url'])
