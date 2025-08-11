@@ -796,8 +796,8 @@ def persoalan1():
 <script>
   var ggbApp = new GGBApplet({
     "appName": "classic",
-    "width": 1200,
-    "height": 500,
+    "width": 1300,
+    "height": 550,
     "material_id": "wmkfatpf",  // Ganti dengan material_id kamu
     "showToolBar": false,
     "showAlgebraInput": false,
