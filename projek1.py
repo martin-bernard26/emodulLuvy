@@ -57,8 +57,18 @@ if "penilaian1" not in st.session_state:
 if "nilai1" not in st.session_state:
     st.session_state.nilai1 = 0
 if "penilaian2" not in st.session_state:
-    st.session_state.penilaian2 = {'jwb1':0,'jwb2':0,'jwb3':0,'jwb4':0}
-    
+    st.session_state.penilaian2 = {'jwb1':0,'jwb2':0,'jwb3':0,'jwb4':0,'jwb5':0}
+if "kumpulkan1" not in st.session_state:
+    st.session_state.kumpulkan1={'jwb1':'','jwb2':'','jwb3':'',
+                                 'jwb4':'','jwb5':'','jwb6':''}
+if "penilaian3" not in st.session_state:
+    st.session_state.penilaian3 = {'jwb1':0,'jwb2':0}
+
+if "nilai2" not in st.session_state:
+    st.session_state.nilai2 = 0
+
+if "foto" not in st.session_state:
+    st.session_state.foto = False
 
 kolom = st.columns(2)
 with kolom[0]:
@@ -98,12 +108,23 @@ st.markdown("""
             font-family:"Brush script mt";
             font-weight:bold;
         }
+        #gmb3{
+            height:200px;
+        }
     </style>
     """,unsafe_allow_html=True)
 soal_masalah = {"soal1":{"pert":["Sebuah segitiga siku-siku memiliki panjang alas 6 cm dan tinggi 8 cm. Berapa panjang sisi miringnya?",
                                  "Panjang sisi miring sebuah segitiga adalah 13 cm, dan salah satu sisi lainnya 5 cm. Hitung panjang sisi yang belum diketahui.",
-                                 "Diketahui panjang sisi siku-siku adalah 9 cm dan 12 cm. Hitung panjang sisi miring."],
-                         "jwb":[10,12,15]},
+                                 "Diketahui panjang sisi siku-siku adalah 9 cm dan 12 cm. Hitung panjang sisi miring.",
+                                 "Seorang siswa mengukur tiang dan menemukan bahwa jarak dari dasar tiang ke ujung bayangan adalah 15 meter, dan tinggi tiang adalah 9 meter. Berapa panjang bayangannya?",
+                                 "Diberikan tiga sisi segitiga: 7 cm, 24 cm, dan 25 cm. Apakah segitiga tersebut merupakan segitiga siku-siku? Jelaskan.",
+                                 "Sebuah tangga sepanjang 10 m disandarkan ke tembok dan membentuk sudut siku-siku dengan tanah. Jika jarak kaki tangga ke tembok adalah 6 m, berapa tinggi tembok?",
+                                 "Di taman, seorang anak berjalan 5 m ke timur, lalu 12 m ke utara. Jika ia memotong langsung ke titik awal, berapa meter jarak yang ditempuhnya?",
+                                 "Sebuah drone terbang vertikal setinggi 80 meter, kemudian bergerak horizontal sejauh 60 meter. Hitung jarak langsung drone dari titik awal penerbangannya.",
+                                 "Dalam koordinat kartesius, titik A berada di (2, 3) dan titik B di (8, 11). Hitung jarak antara titik A dan B menggunakan teorema Pythagoras.",
+                                 "Sebuah layar proyektor berbentuk persegi panjang memiliki diagonal 100 cm dan lebar 60 cm. Hitung tinggi layar tersebut."
+                                 ],
+                         "jwb":[10,12,15,12,1,8,13,100,10,80]},
                 "soal2":{"pert":["Seorang siswa mengukur tiang dan menemukan bahwa jarak dari dasar tiang ke ujung bayangan adalah 15 meter, dan tinggi tiang adalah 9 meter. Berapa panjang bayangannya?",
                                  "Diberikan tiga sisi segitiga: 7 cm, 24 cm, dan 25 cm. Apakah segitiga tersebut merupakan segitiga siku-siku? Jelaskan.",
                                  "Sebuah tangga sepanjang 10 m disandarkan ke tembok dan membentuk sudut siku-siku dengan tanah. Jika jarak kaki tangga ke tembok adalah 6 m, berapa tinggi tembok?"],
@@ -132,6 +153,7 @@ if st.session_state.kumpulanH['kondisi1']:
         st.session_state.materiU = False
         st.session_state.diskusian = False
         st.session_state.prasyaratan = False
+        st.session_state.foto = False
         st.session_state.kumpulanH['kondisi2']=True
         st.rerun()
 
@@ -177,12 +199,34 @@ def sebelum():
         st.session_state.penilaian1['jwb6'] = 17
     else:
         st.session_state.penilaian1['jwb6'] = 0
-        
+    st.session_state.kumpulkan1['jwb1']=isi1
+    st.session_state.kumpulkan1['jwb2']=isi2
+    st.session_state.kumpulkan1['jwb3']=isi3
+    st.session_state.kumpulkan1['jwb4']=isi4
+    st.session_state.kumpulkan1['jwb5']=isi5
+    st.session_state.kumpulkan1['jwb6']=isi6
     st.session_state.nilai1 =0
     for i in st.session_state.penilaian1:
         st.session_state.nilai1 += st.session_state.penilaian1[i]
     if st.button("segitiga1"):
         st.info(st.session_state.nilai1)
+        url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdlx-54LFHJ0sZgDYZZ_VWQQpr3QQuz_ghM8pdHdWzteb940A/formResponse"
+        data = {
+                "entry.1933813413":st.session_state.nama,
+                "entry.1551515866":st.session_state.kelas,
+                "entry.456414240": st.session_state.kumpulkan1['jwb1'],   # Ganti dengan entry ID dari form
+                "entry.1404636430": st.session_state.kumpulkan1['jwb2'],   # Ganti dengan entry ID dari form
+                "entry.2066937479": st.session_state.kumpulkan1['jwb3'],   # Ganti dengan entry ID dari form
+                "entry.409035007": st.session_state.kumpulkan1['jwb4'],   # Ganti dengan entry ID dari form
+                "entry.1208681663": st.session_state.kumpulkan1['jwb5'],   # Ganti dengan entry ID dari form
+                "entry.1743446683": st.session_state.kumpulkan1['jwb6'],   # Ganti dengan entry ID dari form
+                "entry.1131645300": st.session_state.nilai1,   # Ganti dengan entry ID dari form
+            }
+        response = requests.post(url, data=data)
+        if response.status_code == 200:
+            st.success("Berhasil dikirim!")
+        else:
+            st.error(f"Gagal mengirim. Status code: {response.status_code}")
 
     st.markdown("""<div style="font-size:20px; font-weight:bold; color:black; background-color:yellow;
                     padding:5px; width:500px;margin-top:10px; margin-bottom:10px;border-radius:10px">
@@ -206,47 +250,82 @@ def sebelum():
     hasil = st.text_input("Masukan jawaban perpangkatan")
     if hasil:
         if int(hasil)==16:
-            st.info("Jawaban Benar")
+            st.session_state.penilaian3['jwb1']=50
         else:
-            st.error("Jawabanmu Belum tepat")
+            st.session_state.penilaian3['jwb1']=0
+        
     st.write("Akar Kuadrat")
     st.latex("\sqrt{b} = b\\;bilangan\\;jika\\;dikuadratkan\\;menghasilkan")
     st.markdown("Contoh: Berapakah $\sqrt{25}$")
     hasil1 = st.text_input("Masukan jawaban akar")
     if hasil1:
         if int(hasil1)==5:
-            st.info("Jawaban Benar")
+            st.session_state.penilaian3['jwb2']=50
         else:
-            st.error("Jawabanmu Belum tepat")
+            st.session_state.penilaian3['jwb2']=0
+    st.session_state.nilai2 = 0
+    for i in st.session_state.penilaian3:
+        st.session_state.nilai2 += st.session_state.penilaian3[i]
     
+    if st.button("Perpangkatan"):
+        st.info(st.session_state.nilai2)
+        url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSeUQEXXeocJuWXviZT8Mo-K_Lf3NY03iJHmCDzg2sZklP19KA/formResponse"
+        data = {
+                "entry.250286588":st.session_state.nama,
+                "entry.691519511":st.session_state.kelas,
+                "entry.583999644": st.session_state.penilaian3['jwb1'],   # Ganti dengan entry ID dari form
+                "entry.211788676": st.session_state.penilaian3['jwb2'],   # Ganti dengan entry ID dari form
+                "entry.124013394": st.session_state.nilai2,   # Ganti dengan entry ID dari form
+            }
+        response = requests.post(url, data=data)
+        if response.status_code == 200:
+            st.success("Berhasil dikirim!")
+        else:
+            st.error(f"Gagal mengirim. Status code: {response.status_code}")
+            
     st.subheader("📝 Soal Latihan Prasyarat Pythagoras")
     st.write('🔹 A. Mengenal Segitiga Siku-Siku')
     pilihan1 = st.multiselect("Manakah dari segitiga berikut yang merupakan segitiga siku-siku?",["a. 60°, 60°, 60°","b. 90°, 30°, 60°",
                                                                                                 "c. 45°, 45°, 90°","d. 100°, 40°, 40°"])
     if len(pilihan1)==2:
         if set(pilihan1) == set(["b. 90°, 30°, 60°","c. 45°, 45°, 90°"]) :
-            st.info("Jawabanmu Benar")
+            st.session_state.penilaian2['jwb1']=1
         else:
-            st.error("Jawabanmu belum tepat")
+            st.session_state.penilaian2['jwb1']=0
     st.write("🔹 B. Perpangkatan")
     st.write("Hitunglah:")
     st.markdown("a. $6^{2}$")
-    st.session_state.penilaian2['jwb1']=st.text_input("Jawaban pertama")
+    st.session_state.penilaian2['jwb2']=st.text_input("Jawaban pertama")
     st.markdown("a. $9^{2}$")
-    st.session_state.penilaian2['jwb2']=st.text_input("Jawaban kedua")
+    st.session_state.penilaian2['jwb3']=st.text_input("Jawaban kedua")
     st.markdown("a. $\sqrt{49}$")
-    st.session_state.penilaian2['jwb3']=st.text_input("Jawaban ketiga")
+    st.session_state.penilaian2['jwb4']=st.text_input("Jawaban ketiga")
     st.markdown("a. $\sqrt{121}$")
-    st.session_state.penilaian2['jwb4']=st.text_input("Jawaban keempat")
+    st.session_state.penilaian2['jwb5']=st.text_input("Jawaban keempat")
 
     evaluasi = st.button("Evaluasi")
     if evaluasi:
         skor1 = 0
         for i in st.session_state.penilaian2:
-            for j in [36,81,7,11]:
+            for j in [1,36,81,7,11]:
                 if int(st.session_state.penilaian2[i])==j:
-                    skor1 += 25
+                    skor1 += 20
         st.info("skor Anda: "+str(skor1))
+        url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdfy2TszEcBk9r9xRJujZGY-u-rn84wMVTYrsGXt8wgicCb7Q/formResponse"
+        data = {
+                "entry.478207836":st.session_state.nama,
+                "entry.297231504":st.session_state.kelas,
+                "entry.161238096": st.session_state.penilaian2['jwb1'],   # Ganti dengan entry ID dari form
+                "entry.867701823": st.session_state.penilaian2['jwb2'],   # Ganti dengan entry ID dari form
+                "entry.1284738464": st.session_state.penilaian2['jwb3'],   # Ganti dengan entry ID dari form
+                "entry.588768500": st.session_state.penilaian2['jwb4'],   # Ganti dengan entry ID dari form
+                "entry.2146510943": skor1,   # Ganti dengan entry ID dari form
+            }
+        response = requests.post(url, data=data)
+        if response.status_code == 200:
+            st.success("Berhasil dikirim!")
+        else:
+            st.error(f"Gagal mengirim. Status code: {response.status_code}")
     
 if st.session_state.prasyaratan:
     sebelum()
@@ -262,6 +341,7 @@ if st.session_state.kumpulanH['kondisi2']:
         st.session_state.materiU = False
         st.session_state.diskusian = False
         st.session_state.prasyaratan = True
+        st.session_state.foto = False
         st.session_state.kumpulanH['kondisi3']=True
         st.rerun()
 
@@ -394,6 +474,11 @@ width="687px" height="256px" style="border:0px;"> </iframe>""",unsafe_allow_html
         Jika diketahui segitiga siku-siku sama kaki dengan panjang salah satu sisi siku-sikunya $6\;cm$,
         maka panjang sisi miringnya adalah $6√2\;cm$ (karena perbandingannya $1:1:√2$).   
         """)
+        st.markdown("""
+        <iframe scrolling="no" title="pythSegitiga" src="https://www.geogebra.org/material/iframe/id/p6vfeenk/width/1341/height/531/
+        border/888888/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/true/rc/false/ld/false/sdz/true/ctl/false"
+        width="670px" height="267px" style="border:2px solid black;"> </iframe>
+        """,unsafe_allow_html=True)
 if st.session_state.materiU:
     konsep()
 
@@ -410,10 +495,11 @@ if st.session_state.kumpulanH['kondisi3']:
         st.session_state.diskusian = False
         st.session_state.prasyaratan = False
         st.session_state.kumpulanH['kondisi4']=True
+        st.session_state.foto = False
         st.rerun()
         
 def testing():
-    st.subheader("🟢Le vel Dasar")
+    st.subheader("Test Awal")
     st.markdown("""<div style="font-family:Arial;font-size:20px">Fokus: Mengidentifikasi sisi miring dan menghitung panjang sisi menggunakan rumus.<div>""",unsafe_allow_html=True)
     st.session_state.jawab = []
     st.session_state.skor1 = 0
@@ -423,6 +509,20 @@ def testing():
     st.session_state.jawab.append(st.text_input("Jawab 2: "))
     st.write(f'3. {soal_masalah["soal1"]["pert"][2]}')
     st.session_state.jawab.append(st.text_input("Jawab 3: "))
+    st.write(f'4. {soal_masalah["soal1"]["pert"][3]}')
+    st.session_state.jawab.append(st.text_input("Jawab 4: "))
+    st.write(f'5. {soal_masalah["soal1"]["pert"][4]}')
+    st.session_state.jawab.append(st.text_input("Jawab 5: "))
+    st.write(f'6. {soal_masalah["soal1"]["pert"][5]}')
+    st.session_state.jawab.append(st.text_input("Jawab 6: "))
+    st.write(f'7. {soal_masalah["soal1"]["pert"][6]}')
+    st.session_state.jawab.append(st.text_input("Jawab 7: "))
+    st.write(f'8. {soal_masalah["soal1"]["pert"][7]}')
+    st.session_state.jawab.append(st.text_input("Jawab 8: "))
+    st.write(f'9. {soal_masalah["soal1"]["pert"][8]}')
+    st.session_state.jawab.append(st.text_input("Jawab 9: "))
+    st.write(f'10. {soal_masalah["soal1"]["pert"][9]}')
+    st.session_state.jawab.append(st.text_input("Jawab 10: "))
     tekan = st.button("Skor1")
     j=-1
     if tekan:
@@ -438,6 +538,13 @@ def testing():
                 "entry.304047274": st.session_state.jawab[0],   # Ganti dengan entry ID dari form
                 "entry.1139367795": st.session_state.jawab[1],   # Ganti dengan entry ID dari form
                 "entry.2128328793": st.session_state.jawab[2],   # Ganti dengan entry ID dari form
+                "entry.2014153957": st.session_state.jawab[3],   # Ganti dengan entry ID dari form
+                "entry.1707224152": st.session_state.jawab[4],   # Ganti dengan entry ID dari form
+                "entry.1957771308": st.session_state.jawab[5],   # Ganti dengan entry ID dari form
+                "entry.1922613157": st.session_state.jawab[6],   # Ganti dengan entry ID dari form
+                "entry.953654567": st.session_state.jawab[7],   # Ganti dengan entry ID dari form
+                "entry.1799522321": st.session_state.jawab[8],   # Ganti dengan entry ID dari form
+                "entry.2097040367": st.session_state.jawab[9],   # Ganti dengan entry ID dari form
                 "entry.2014153957": st.session_state.skor1,   # Ganti dengan entry ID dari form
             }
         response = requests.post(url, data=data)
@@ -445,59 +552,6 @@ def testing():
             st.success("Berhasil dikirim!")
         else:
             st.error(f"Gagal mengirim. Status code: {response.status_code}")
-
-    st.subheader("🟡 Level 2: Menengah (Masalah Kontekstual dan Pembalikan Rumus)")
-    st.markdown("""<div style="font-family:Arial;font-size:20px">Fokus: Soal cerita dan menentukan apakah segitiga merupakan segitiga siku-siku.<div>""",unsafe_allow_html=True)
-    st.session_state.jawab1 = []
-    st.session_state.skor2 = 0
-    st.write(f'4. {soal_masalah["soal2"]["pert"][0]}')
-    st.session_state.jawab1.append(st.text_input("Jawab 4: "))
-    st.write(f'5. {soal_masalah["soal2"]["pert"][1]}')
-    st.session_state.jawab1.append(st.text_input("Jawab 5: "))
-    st.write(f'6. {soal_masalah["soal2"]["pert"][2]}')
-    st.session_state.jawab1.append(st.text_input("Jawab 6: "))
-    tekan1 = st.button("Skor2")
-    j=-1
-    if tekan1:
-        for i in st.session_state.jawab1:
-            j+=1
-            if int(i)==soal_masalah['soal2']['jwb'][j]:
-                st.session_state.skor2 +=10
-        st.info(f"Skor: {st.session_state.skor2}")
-        url1 = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdlx-54LFHJ0sZgDYZZ_VWQQpr3QQuz_ghM8pdHdWzteb940A/formResponse"
-        data1 = {
-                "entry.1933813413":st.session_state.nama,
-                "entry.1551515866":st.session_state.kelas,
-                "entry.456414240": st.session_state.jawab1[0],   # Ganti dengan entry ID dari form
-                "entry.1404636430": st.session_state.jawab1[1],   # Ganti dengan entry ID dari form
-                "entry.2066937479": st.session_state.jawab1[2],   # Ganti dengan entry ID dari form
-                "entry.1131645300": st.session_state.skor2,   # Ganti dengan entry ID dari form
-            }
-        response = requests.post(url1, data=data1)
-        if response.status_code == 200:
-            st.success("Berhasil dikirim!")
-        else:
-            st.error(f"Gagal mengirim. Status code: {response.status_code}")
-    st.subheader("🔴 Level 3: Tinggi (Aplikasi Kompleks dan Soal Terbalik)")
-    st.markdown("""<div style="font-family:Arial;font-size:20px">Fokus: Problem solving, multiple steps, dan integrasi konsep.<div>""",unsafe_allow_html=True)
-    st.session_state.jawab2 = []
-    st.session_state.skor3 = 0
-    st.write(f'7. {soal_masalah["soal3"]["pert"][0]}')
-    st.session_state.jawab2.append(st.text_input("Jawab 7: "))
-    st.write(f'8. {soal_masalah["soal3"]["pert"][1]}')
-    st.session_state.jawab2.append(st.text_input("Jawab 8: "))
-    st.write(f'9. {soal_masalah["soal3"]["pert"][2]}')
-    st.session_state.jawab2.append(st.text_input("Jawab 9: "))
-    st.write(f'10. {soal_masalah["soal3"]["pert"][3]}')
-    st.session_state.jawab2.append(st.text_input("Jawab 10: "))
-    tekan2 = st.button("Skor3")
-    j=-1
-    if tekan2:
-        for i in st.session_state.jawab2:
-            j+=1
-            if int(i)==soal_masalah['soal3']['jwb'][j]:
-                st.session_state.skor3 +=10
-        st.info(f"Skor: {st.session_state.skor3}")
 if st.session_state.coba3:
     testing()
 if st.session_state.kumpulanH['kondisi4']:
@@ -512,6 +566,7 @@ if st.session_state.kumpulanH['kondisi4']:
         st.session_state.materiU = False
         st.session_state.diskusian = False
         st.session_state.prasyaratan = False
+        st.session_state.foto = False
         st.session_state.kumpulanH['kondisi5']=True
         st.rerun()
         
@@ -550,6 +605,7 @@ if st.session_state.kumpulanH['kondisi5']:
         st.session_state.tampilan = False
         st.session_state.materiU = False
         st.session_state.diskusian = False
+        st.session_state.foto = False
         st.session_state.kumpulanH['kondisi6']=True
         st.rerun()
 
@@ -617,9 +673,15 @@ def materi_segitiga2():
             seperti mengukur jarak, menentukan posisi,
             konstruksi bangunan, dan navigasi.**.
             """)
+    with col2[1]:
+        st.markdown("""
+        <img id="gmb3" class="gmb" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9VN_nOPyKe6TOdY9NHXOK54Bbzc1jqnlqrg&s"></img>
+    """,unsafe_allow_html=True)
     col3 = st.columns([1,2])
     with col3[0]:
-        st.write("")
+         st.markdown("""
+        <img id="gmb4" class="gmb" src="https://ghost-blog-assets.zenius.net/wordpress/2016/10/relasi-luas-persegi.png"></img>
+    """,unsafe_allow_html=True)
     with col3[1]:
         with st.container(height=200):
             st.markdown("""
@@ -693,6 +755,7 @@ def gambaran():
             st.success("Berhasil diupload!")
             st.image(result['secure_url'], caption="Link dari Cloudinary")
             st.write("URL:", result['secure_url'])
+
 
 
 def persoalan1():
@@ -786,9 +849,56 @@ def persoalan1():
        </ol>
     </div>
     """,unsafe_allow_html=True)
+    tekan3 = st.button("Rekam Hasil Kerja")
+    if tekan3:
+        st.session_state.coba=False
+        st.session_state.coba1=False
+        st.session_state.coba2=True
+        st.session_state.coba3 = False
+        st.session_state.materi1 = False
+        st.session_state.materi2 = False
+        st.session_state.tampilan = False
+        st.session_state.materiU = False
+        st.session_state.diskusian = False
+        st.session_state.foto = True
+        st.session_state.prasyaratan = False
+        st.session_state.kumpulanH['kondisi8']=True
+        st.session_state.kumpulanH['kondisi9']=True
+        st.rerun()
 
 if st.session_state.coba2:
     persoalan1()
+
+def rekam():
+    # --- Konfigurasi Cloudinary ---
+    cloudinary.config(
+        cloud_name="ikip-siliwangi",  # Ganti dengan Cloud Name
+        api_key="828299653824342",        # Ganti dengan API Key
+        api_secret="x_VT-fDecxYHYyN1Wkk7kjyuU1U"   # Ganti dengan API Secret
+    )
+
+    st.title("Ambil Foto & Upload ke Cloudinary")
+
+    # --- Ambil foto dari kamera ---
+    img = st.camera_input("Ambil foto")
+
+    if img is not None:
+        st.image(img, caption="Foto yang diambil", use_column_width=True)
+
+        if st.button("Upload ke Cloudinary"):
+            # Simpan file sementara
+            with open("foto.jpg", "wb") as f:
+                f.write(img.getbuffer())
+
+            # Upload ke Cloudinary
+            upload_result = cloudinary.uploader.upload("foto.jpg")
+
+            st.success("Foto berhasil diunggah!")
+            st.write("URL Cloudinary:", upload_result["secure_url"])
+            st.image(upload_result["secure_url"], caption="Foto di Cloudinary")
+            
+if st.session_state.foto:
+    rekam()
 if st.session_state.kumpulanH['kondisi7']:
     if st.sidebar.button("Mencari Harta Karun"):
         st.session_state.coba=False
@@ -800,6 +910,7 @@ if st.session_state.kumpulanH['kondisi7']:
         st.session_state.tampilan = False
         st.session_state.materiU = False
         st.session_state.diskusian = False
+        st.session_state.foto = False
         st.session_state.prasyaratan = False
         st.session_state.kumpulanH['kondisi8']=True
         st.session_state.kumpulanH['kondisi9']=True
@@ -850,6 +961,32 @@ def persoalan2():
        </ol>
     </div>
     """,unsafe_allow_html=True)
+
+    kode_html1='''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+    <script>
+        var params = {"id":"ggbApplet","appName": "classic", "width": 600, "height": 400, "showToolBar": true, "showAlgebraInput": false, "showMenuBar": false };
+        var applet = new GGBApplet('5.0',params);
+        window.onload=function(){
+            applet.inject('ggb-element')
+        }
+    </script>
+    
+    </head>
+    <body>
+    <div>
+        <div id="ggb-element"></div>
+    </div>
+    </body>
+    </html>
+    '''
+    components.html(kode_html1,height=1000)
 if st.session_state.coba1:
     persoalan2()
 
